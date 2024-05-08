@@ -1,0 +1,21 @@
+[x,fs]=audioread('C:\Program Files\MATLAB\MATLAB Production
+Server\R2015a\bin\work\data\1-11.wav');
+plot(x);axis tight;grid on;
+sample=ginput(5);
+pp=diff(sample)/fs;
+% diff(X), for a vector X, is [X(2)-X(1) X(3)-X(2) ... X(n)-X(n-1)].
+pf=1./pp;
+%pitch period estimation using autocorrelation
+[x,fs]=audioread('C:\Program Files\MATLAB\MATLAB Production
+Server\R2015a\bin\work\data\1-11.wav');
+b=fir1(51,0.05);
+x_filter=filter(b,1,x);
+subplot(211),plot(x);axis tight;grid on;
+subplot(212),plot(x_filter);axis tight;grid on;
+y1=x_filter(5000:5400);
+plot(y1);axis tight;grid on;
+x_corr=xcorr(y1);
+plot(x_corr);axis tight;grid on;
+instants=ginput(2);
+pp=instants/fs;
+pf=1./pp;
